@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center min-vh-100 py-5">
+            <div class="col-lg-7 hero-content">
+                <span class="badge hero-badge mb-3">Цифровая трансформация</span>
+                <h1 class="display-4 fw-bold text-white mb-4">
+                    Решения для бизнеса,<br>
+                    <span class="text-gradient">которые работают</span>
+                </h1>
+                <p class="lead text-light opacity-90 mb-4">
+                    Мы проектируем и внедряем Telegram-ботов, интернет-магазины, CRM-системы,
+                    корпоративные сайты и AI-ассистентов — от идеи до измеримого результата.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ url_for('contact') }}" class="btn btn-warning btn-lg px-4 hero-btn">
+                        <i class="bi bi-chat-dots me-2"></i>Оставить заявку
+                    </a>
+                    <a href="{{ url_for('cases_list') }}" class="btn btn-outline-light btn-lg px-4 hero-btn">
+                        <i class="bi bi-briefcase me-2"></i>Смотреть кейсы
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block text-center">
+                <div class="hero-illustration float-animation">
+                    <i class="bi bi-rocket-takeoff"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 section-about">
+    <div class="container py-4">
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-8">
+                <h2 class="section-title">О компании</h2>
+                <p class="text-muted fs-5">
+                    TechSolutions — команда разработчиков и аналитиков с опытом в e-commerce,
+                    автоматизации и искусственном интеллекте. Мы помогаем компаниям экономить время,
+                    увеличивать продажи и улучшать клиентский опыт.
+                </p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card h-100 text-center p-4">
+                    <div class="feature-icon mb-3"><i class="bi bi-speedometer2"></i></div>
+                    <h5>Быстрый старт</h5>
+                    <p class="text-muted mb-0">MVP за недели, не месяцы — с чётким планом и прозрачными сроками.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card h-100 text-center p-4">
+                    <div class="feature-icon mb-3"><i class="bi bi-graph-up-arrow"></i></div>
+                    <h5>Измеримый результат</h5>
+                    <p class="text-muted mb-0">Фокус на метриках: конверсия, время ответа, экономия ресурсов.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card h-100 text-center p-4">
+                    <div class="feature-icon mb-3"><i class="bi bi-headset"></i></div>
+                    <h5>Поддержка 24/7</h5>
+                    <p class="text-muted mb-0">Сопровождение после запуска и развитие продукта по мере роста.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light section-cases-preview">
+    <div class="container py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-end mb-5 gap-3">
+            <div>
+                <h2 class="section-title mb-2">Наши кейсы</h2>
+                <p class="text-muted mb-0">3 учебных проекта</p>
+            </div>
+            <a href="{{ url_for('cases_list') }}" class="btn btn-outline-primary">
+                Все кейсы <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+        <div class="row g-4">
+            {% for case in cases %}
+            <div class="col-md-6 col-lg-4">
+                <article class="case-card h-100">
+                    <div class="case-card-img-wrap">
+                        <img src="{{ url_for('static', filename='images/' + case.image) }}"
+                             alt="{{ case.title }}" class="case-card-img" loading="lazy">
+                    </div>
+                    <div class="case-card-body p-4">
+                        <h5 class="case-card-title">{{ case.title }}</h5>
+                        <p class="text-muted small mb-3">{{ case.short_description }}</p>
+                        <a href="{{ url_for('case_detail', slug=case.slug) }}" class="btn btn-sm btn-primary case-btn">
+                            Подробнее <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 cta-section">
+    <div class="container">
+        <div class="cta-box text-center p-5">
+            <h2 class="text-white mb-3">Готовы обсудить ваш проект?</h2>
+            <p class="text-light opacity-90 mb-4">
+                Оставьте заявку — мы свяжемся с вами в течение одного рабочего дня.
+            </p>
+            <a href="{{ url_for('contact') }}" class="btn btn-warning btn-lg px-5">
+                <i class="bi bi-send me-2"></i>Перейти к форме обратной связи
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

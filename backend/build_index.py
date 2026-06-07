@@ -6,7 +6,7 @@ import numpy as np
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from .rag_index import load_faq_data
+from .rag_index import load_faq_data, write_faiss_index
 
 
 load_dotenv()
@@ -100,7 +100,7 @@ def main():
     index.add(embeddings)
 
     os.makedirs(os.path.dirname(INDEX_PATH), exist_ok=True)
-    faiss.write_index(index, INDEX_PATH)
+    write_faiss_index(index, INDEX_PATH)
 
     # Save metadata (questions + answers + optional source)
     meta = np.array(

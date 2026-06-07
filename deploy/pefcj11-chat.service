@@ -1,0 +1,15 @@
+[Unit]
+Description=PEcj11 FAQ chat API (uvicorn)
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/pefcj11
+EnvironmentFile=/var/www/pefcj11/.env
+ExecStart=/var/www/pefcj11/venv/bin/uvicorn backend.app:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

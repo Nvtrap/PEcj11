@@ -6,6 +6,7 @@
 
 ### Структура проекта
 
+- `app.py` — Flask-сайт (кейсы, контакты, админ-панель).
 - `backend/`
   - `app.py` — FastAPI-сервер, эндпоинт `/chat`, интеграция с OpenAI и поиск по FAISS.
   - `build_index.py` — скрипт построения RAG-индекса из FAQ-данных.
@@ -13,8 +14,9 @@
 - `data/`
   - `faqs.json` — пример данных FAQ (вопрос–ответ).
   - `faiss_index.bin`, `faqs_metadata.npy` — будут созданы скриптом `build_index.py`.
-- `frontend/`
-  - `index.html` — простая страница с виджетом чата.
+- `templates/` — страницы сайта и чат-виджет на кейсе FAQ-ассистент.
+- `static/` — стили и скрипты сайта.
+- `frontend/index.html` — отдельная демо-страница с виджетом чата.
 - `requirements.txt` — зависимости Python.
 
 ### Подготовка окружения
@@ -47,13 +49,22 @@ python -m backend.build_index
 - создаст FAISS-индекс `faiss_index.bin`;
 - сохранит метаданные вопросов/ответов в `faqs_metadata.npy`.
 
-### 2. Запуск backend-сервера
+### 2. Запуск backend-сервера (API чата)
 
 ```bash
 uvicorn backend.app:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Эндпоинты:
+### 3. Запуск Flask-сайта
+
+```bash
+python app.py
+```
+
+Сайт: http://127.0.0.1:5000  
+Кейс с чатом: http://127.0.0.1:5000/cases/faq-assistant
+
+Эндпоинты API:
 - `POST /chat` — основной чат с RAG:
   - вход: JSON `{ "message": "текст вопроса", "top_k": 3 }`;
   - выход: `{ "answer": "...", "context": [ { "question": "...", "answer": "..." }, ... ] }`.
@@ -78,4 +89,13 @@ uvicorn backend.app:app --reload --host 0.0.0.0 --port 8000
 3. **RAG**: найденные FAQ передаются в `system + user` промпт для `gpt-4.1-mini` через OpenAI.
 4. Модель генерирует короткий ответ на русском, используя контекст FAQ, и возвращает его во фронтенд-виджет.
 
+### Деплой в продакшен
+
+Подробная инструкция: **[deploy/DEPLOY.md](deploy/DEPLOY.md)**
+
+Кратко:
+1. Запушьте проект на GitHub.
+2. На VPS (Timeweb): `sudo bash deploy/setup-server.sh https://github.com/ВАШ/PEcj11.git`
+3. Настройте `/var/www/pefcj11/.env` (`OPENAI_API_KEY`, `CHAT_API_URL`, `SECRET_KEY`).
+4. Подключите nginx (`deploy/nginx-pefcj11.conf`) и SSL (certbot).
 

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Кейсы{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb breadcrumb-dark mb-0">
+                <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Кейсы</li>
+            </ol>
+        </nav>
+        <h1 class="display-5 fw-bold text-white mb-2">Кейсы и проекты</h1>
+        <p class="lead text-light opacity-75 mb-0">
+            Реальные истории внедрения цифровых решений для бизнеса
+        </p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row g-4">
+            {% for case in cases %}
+            <div class="col-md-6 col-lg-4">
+                <article class="case-card h-100">
+                    <div class="case-card-img-wrap">
+                        <img src="{{ url_for('static', filename='images/' + case.image) }}"
+                             alt="{{ case.title }}" class="case-card-img" loading="lazy">
+                        <span class="case-number">#{{ case.id }}</span>
+                        {% if case.get('coming_soon') %}
+                        <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3">Скоро</span>
+                        {% endif %}
+                    </div>
+                    <div class="case-card-body p-4">
+                        <h5 class="case-card-title">{{ case.title }}</h5>
+                        <p class="text-muted mb-4">{{ case.short_description }}</p>
+                        <a href="{{ url_for('case_detail', slug=case.slug) }}"
+                           class="btn btn-primary w-100 case-btn mb-2">
+                            Подробнее <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                        {% if case.get('telegram_url') %}
+                        <a href="{{ case.telegram_url }}" class="btn btn-outline-primary w-100" target="_blank" rel="noopener">
+                            <i class="bi bi-telegram me-1"></i>Открыть бота
+                        </a>
+                        {% endif %}
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

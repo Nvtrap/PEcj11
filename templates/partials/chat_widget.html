@@ -1,0 +1,25 @@
+<div id="faq-chat-root" data-api-base="{{ chat_api_url }}">
+  <button class="chat-launcher" id="chat-launcher" aria-label="Открыть FAQ-ассистента">
+    <span>💬</span>
+  </button>
+
+  <div class="chat-widget" id="chat-widget" style="display:none;">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="avatar">AI</div>
+        <div>
+          <div class="chat-title">FAQ ассистент</div>
+          <div class="chat-subtitle">Задайте вопрос о компании</div>
+        </div>
+      </div>
+      <button class="chat-close" id="chat-close" aria-label="Закрыть чат">×</button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-footer">
+      <input id="chat-input" class="chat-input" placeholder="Напишите вопрос..." />
+      <button id="chat-send" class="chat-send">
+        <span>➤</span>
+      </button>
+    </div>
+  </div>
+</div>
