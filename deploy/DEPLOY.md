@@ -88,7 +88,7 @@ sudo systemctl restart pefcj11-web pefcj11-chat
 sudo cp /var/www/pefcj11/deploy/nginx-pefcj11.conf /etc/nginx/sites-available/pefcj11
 sudo nano /etc/nginx/sites-available/pefcj11   # замените ВАШ_ДОМЕН
 sudo ln -sf /etc/nginx/sites-available/pefcj11 /etc/nginx/sites-enabled/
-sudo rm -f /etc/nginx/sites-enabled/default
+# НЕ удаляйте default и другие сайты (n8n)! Добавьте pefcj11 отдельным server_name или портом.
 sudo nginx -t
 sudo systemctl reload nginx
 ```
