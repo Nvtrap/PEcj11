@@ -87,7 +87,7 @@ CASES = [
             "клиентов на основе базы знаний компании."
         ),
         "image": "case3.svg",
-        "github_url": "https://github.com/MrGAN12009/pcef9",
+        "github_url": "https://github.com/Nvtrap/PEcj11",
         "detail": {
             "challenge": (
                 "Клиенты задают одни и те же вопросы: сроки, условия, тарифы. "

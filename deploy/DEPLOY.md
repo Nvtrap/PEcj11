@@ -23,14 +23,25 @@
 
 ---
 
-## Шаг 1. VPS (Timeweb или другой)
+## Шаг 1. VPS Timeweb (тот же сервер, что и Telegram-бот)
 
-1. Создайте VPS с **Ubuntu 22.04**.
-2. Подключитесь по SSH:
-   ```bash
-   ssh root@IP_ВАШЕГО_СЕРВЕРА
-   ```
-3. (Опционально) Привяжите домен к IP в панели Timeweb.
+1. Зайдите в [Timeweb Cloud](https://cloud.timeweb.com) → ваш VPS.
+2. Скопируйте **IP-адрес** и пароль root (или используйте SSH-ключ).
+3. Подключитесь с компьютера:
+
+```bash
+ssh root@IP_ВАШЕГО_VPS
+```
+
+4. Проверьте, что порты свободны (бот их обычно не занимает):
+
+```bash
+ss -tlnp | grep -E ':5000|:8000|:80'
+```
+
+Если `:5000` или `:8000` заняты — напишите, подберём другие порты.
+
+5. (Если есть домен) В Timeweb: **Домены → DNS → A-запись** `@` и `www` → IP вашего VPS.
 
 ---
 
@@ -38,9 +49,9 @@
 
 ```bash
 cd /tmp
-git clone https://github.com/ВАШ_ЛОГИН/PEcj11.git
+git clone https://github.com/Nvtrap/PEcj11.git
 cd PEcj11
-sudo bash deploy/setup-server.sh https://github.com/ВАШ_ЛОГИН/PEcj11.git
+sudo bash deploy/setup-server.sh https://github.com/Nvtrap/PEcj11.git
 ```
 
 Скрипт установит Python, nginx, venv, зависимости и systemd-службы.
